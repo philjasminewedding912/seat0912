@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>座位查詢 Find Your Seat｜09.12</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#24201d;--ink2:#6b625a;--line:#e4ded6;--paper:#fff;--panel:#faf8f5;
+      --red:#a81d26;--red-bg:#fbeaeb;--gold:#9c7c36}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Sans TC",system-ui,sans-serif;font-size:17px;line-height:1.65}
+.wrap{max-width:500px;margin:0 auto;padding:0 20px 60px}
+
+header{padding:34px 0 0;text-align:center}
+.he{font-size:13px;letter-spacing:.24em;color:var(--gold);margin:0 0 8px}
+h1{font-family:"Noto Serif TC",serif;font-weight:700;font-size:25px;margin:0;letter-spacing:.06em}
+.h1en{margin:4px 0 0;font-size:14px;letter-spacing:.16em;color:var(--ink2);text-transform:uppercase}
+.en{display:block;font-size:13px;line-height:1.5;color:var(--ink2);font-weight:400;letter-spacing:0}
+.stage .en,.av .en,.door .en{font-size:.78em;color:inherit;opacity:.65;letter-spacing:.02em}
+.stage,.av,.door{flex-direction:column;gap:1px;line-height:1.15}
+.hs{margin:8px 0 0;font-size:14px;color:var(--ink2)}
+
+.search{padding:28px 0 0}
+label{display:block;font-size:16px;font-weight:500;margin-bottom:10px}
+input[type=search]{width:100%;font:inherit;font-size:20px;padding:16px;
+  border:2px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink)}
+input[type=search]:focus{outline:none;border-color:var(--red)}
+.hint{margin:10px 2px 0;font-size:14px;color:var(--ink2)}
+
+#out:not(:empty){margin-top:24px}
+.card{border:2px solid var(--red);border-radius:16px;padding:24px 20px;text-align:center}
+.card{text-align:center}
+.ln{margin:0;font-size:17px;line-height:1.75}
+.greet{font-weight:500}
+.seat{margin:14px 0;line-height:1.25}
+.no{display:block;font-family:"Noto Serif TC",serif;font-weight:700;color:var(--red);
+  font-size:46px;letter-spacing:.01em}
+.no.rng{font-size:30px;line-height:1.35}
+.sub{display:block;margin-top:6px;font-size:16px;color:var(--ink);font-weight:500}
+.thx{margin-top:14px;color:var(--ink2);font-size:16px}
+.veg{margin:8px 0 0;font-size:16px;color:var(--gold);font-weight:500}
+.note{margin:8px 0 0;font-size:15px;color:var(--ink2)}
+.enblk{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink2)}
+.enblk .ln{font-size:15.5px;line-height:1.65}
+.enblk .no{font-size:38px}
+.enblk .no.rng{font-size:25px}
+.enblk .sub{font-size:14.5px;color:var(--ink2);font-weight:400}
+.enblk .thx{font-size:14.5px}
+.pax{margin:4px 0 0;font-size:16px;color:var(--ink2)}
+.area{margin:16px 0 0;font-size:15px;color:var(--gold);letter-spacing:.1em}
+.big{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--red);line-height:1.1;
+  font-size:76px;margin:2px 0 0}
+.big small{font-size:26px;letter-spacing:.04em}
+.big.rng{font-size:34px;line-height:1.35;margin-top:8px}
+.mode .en{margin-top:2px;font-size:12.5px}
+.pax .en,.area .en,.veg .en{margin-top:2px}
+.none .en{margin-top:8px}
+.mode{display:inline-block;margin-top:14px;padding:8px 16px;border-radius:99px;
+  font-size:15px;font-weight:500;background:var(--red-bg);color:var(--red)}
+.mode.free{background:var(--panel);color:var(--ink);border:1px solid var(--line)}
+.note{margin:14px 0 0;font-size:15px;color:var(--ink2)}
+
+
+.pick{border:1px solid var(--line);border-radius:16px;padding:18px 16px 10px}
+.pick p{margin:0 0 12px;font-size:16px}
+.chip{display:flex;justify-content:space-between;gap:12px;width:100%;text-align:left;font:inherit;
+  font-size:17px;padding:14px;margin-bottom:8px;border:1px solid var(--line);
+  border-radius:10px;background:var(--paper);cursor:pointer}
+.chip span{color:var(--red);font-weight:500;white-space:nowrap;font-size:15px}
+.none{border:1px dashed var(--line);border-radius:16px;padding:24px 18px;text-align:center;color:var(--ink2)}
+.none strong{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+.sec{margin-top:34px}
+.sec h2{font-family:"Noto Serif TC",serif;font-size:18px;margin:0 0 4px;letter-spacing:.05em}
+.sec p{margin:0 0 14px;font-size:14px;color:var(--ink2)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+.map{position:relative;width:100%;aspect-ratio:670/1290;container-type:inline-size;
+  border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+/* 窄螢幕：維持最小寬度、左右滑動；桌號才不會小到看不清 */
+@media (max-width:539px){ .map{min-width:470px} }
+/* 寬螢幕：桌位圖跳出文字欄，用滿版面，不出現橫向捲軸 */
+@media (min-width:700px){ #mapsec{margin-left:-90px;margin-right:-90px} }
+.stage,.av,.aisle,.door{position:absolute;display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-size:2.4cqw;color:var(--ink2);border:1px solid var(--line);background:var(--paper);border-radius:4px}
+.stage{left:33%;top:1.5%;width:33%;height:5.5%;font-size:14px;font-size:2.9cqw;color:var(--ink)}
+.av{left:78%;top:1.5%;width:17%;height:4%}
+.aisle{left:45.5%;top:19%;width:9%;height:76.5%;border-radius:5px;
+  background:repeating-linear-gradient(180deg,#fff,#fff 9px,#f3eee7 9px,#f3eee7 18px);
+  font-size:12px;font-size:2.3cqw;color:#a8a099}
+.aisle span{writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.2em;
+  line-height:1;display:block}
+.door{left:41%;top:96.5%;width:17%;height:2.6%;border-color:var(--gold);color:var(--gold)}
+.tb{position:absolute;transform:translate(-50%,-50%);width:13%;aspect-ratio:1;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+  border:1.5px solid #d8d1c8;background:var(--paper);color:#9b938b;
+  transition:transform .2s ease,box-shadow .2s ease}
+.tb b{font-size:17px;font-size:3.5cqw;font-weight:700;line-height:1}
+.tb i{font-size:9.5px;font-size:1.95cqw;font-style:normal;line-height:1;color:#a49c93;letter-spacing:-.02em}
+.tb-main{width:14.5%}
+.tb-main b{font-family:"Noto Serif TC",serif;font-size:14px;font-size:2.9cqw}
+.tb.sp{border-style:dashed;background:transparent}
+.tb.on{background:var(--red);border-color:var(--red);color:#fff;
+  box-shadow:0 0 0 4px rgba(168,29,38,.16);transform:translate(-50%,-50%) scale(1.14);z-index:5}
+.tb.on b{font-weight:700}
+.tb.on i{color:rgba(255,255,255,.88)}
+@media (prefers-reduced-motion:reduce){.tb{transition:none}}
+
+footer{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);
+  font-size:14px;color:var(--ink2);text-align:center;line-height:1.85}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="he">2026.09.12 午宴 · LUNCHEON</p>
+  <h1>座位查詢</h1>
+  <p class="h1en">Find Your Seat</p>
+  <p class="hs">陽府囍宴　維多利亞廳<span class="en">Yang Wedding · Victoria Hall</span></p>
+</header>
+
+<div class="search">
+  <label for="q">請輸入您的姓名<span class="en">Enter your name</span></label>
+  <input id="q" type="search" autocomplete="off" enterkeyhint="search" placeholder="例如：陳建霖">
+  <p class="hint">請輸入至少 2 個字，中英文皆可。姓名不必完整，例如「建霖」也查得到。<span class="en">Type at least 2 characters. A partial name works — e.g. “Lewis”.</span></p>
+</div>
+
+<div id="out"></div>
+
+<section class="sec" id="mapsec">
+  <h2>桌位圖<span class="en">Seating Map</span></h2>
+  <p>舞台在上方，入口在下方。查詢後您的桌次會標示為紅色。<span class="en">Stage at the top, entrance at the bottom. Your table is highlighted in red.</span></p>
+  <div class="scroll">
+    <div class="map" id="map">
+      <div class="stage">舞台<span class="en">Stage</span></div>
+      <div class="av">音控<span class="en">Sound</span></div>
+      <div class="aisle"><span>走道 Aisle</span></div>
+      <div class="door">入口<span class="en">Entrance</span></div>
+      <div class="tb" style="left:11.5%;top:14.00%" data-t="1"><b>1</b><i>女方家人</i></div>
+      <div class="tb" style="left:11.5%;top:22.10%" data-t="2"><b>2</b><i>女方家人</i></div>
+      <div class="tb" style="left:11.5%;top:30.20%" data-t="3"><b>3</b><i>女方貴賓</i></div>
+      <div class="tb" style="left:11.5%;top:38.30%" data-t="4"><b>4</b><i>女方親友</i></div>
+      <div class="tb" style="left:11.5%;top:46.40%" data-t="5"><b>5</b><i>男方貴賓</i></div>
+      <div class="tb" style="left:11.5%;top:54.50%" data-t="6"><b>6</b><i>女方同事</i></div>
+      <div class="tb" style="left:11.5%;top:62.60%" data-t="7"><b>7</b><i>女方同事</i></div>
+      <div class="tb" style="left:11.5%;top:70.70%" data-t="8"><b>8</b><i>新人朋友</i></div>
+      <div class="tb" style="left:11.5%;top:78.80%" data-t="9"><b>9</b><i>72群</i></div>
+      <div class="tb" style="left:11.5%;top:86.90%" data-t="10"><b>10</b><i>72群</i></div>
+      <div class="tb sp" style="left:11.5%;top:95.00%"><i>預備桌</i></div>
+      <div class="tb" style="left:30.0%;top:14.00%" data-t="11"><b>11</b><i>女方家人</i></div>
+      <div class="tb" style="left:30.0%;top:22.10%" data-t="12"><b>12</b><i>貴賓桌</i></div>
+      <div class="tb" style="left:30.0%;top:30.20%" data-t="13"><b>13</b><i>男方親友</i></div>
+      <div class="tb" style="left:30.0%;top:38.30%" data-t="14"><b>14</b><i>男方同事</i></div>
+      <div class="tb" style="left:30.0%;top:46.40%" data-t="15"><b>15</b><i>男方朋友</i></div>
+      <div class="tb" style="left:30.0%;top:54.50%" data-t="16"><b>16</b><i>女方親友</i></div>
+      <div class="tb" style="left:30.0%;top:62.60%" data-t="17"><b>17</b><i>女方同事</i></div>
+      <div class="tb" style="left:30.0%;top:70.70%" data-t="18"><b>18</b><i>中心連</i></div>
+      <div class="tb" style="left:30.0%;top:78.80%" data-t="19"><b>19</b><i>中心連</i></div>
+      <div class="tb" style="left:30.0%;top:86.90%" data-t="20"><b>20</b><i>72群</i></div>
+      <div class="tb sp" style="left:30.0%;top:95.00%"><i>預備桌</i></div>
+      <div class="tb" style="left:70.0%;top:14.00%" data-t="21"><b>21</b><i>長官</i></div>
+      <div class="tb" style="left:70.0%;top:22.10%" data-t="22"><b>22</b><i>長官</i></div>
+      <div class="tb" style="left:70.0%;top:30.20%" data-t="23"><b>23</b><i>陸院老師</i></div>
+      <div class="tb" style="left:70.0%;top:38.30%" data-t="24"><b>24</b><i>陸院老師</i></div>
+      <div class="tb" style="left:70.0%;top:46.40%" data-t="25"><b>25</b><i>欣桃</i></div>
+      <div class="tb" style="left:70.0%;top:54.50%" data-t="26"><b>26</b><i>欣桃</i></div>
+      <div class="tb" style="left:70.0%;top:62.60%" data-t="27"><b>27</b><i>陸官46期</i></div>
+      <div class="tb" style="left:70.0%;top:70.70%" data-t="28"><b>28</b><i>陸官46期</i></div>
+      <div class="tb" style="left:70.0%;top:78.80%" data-t="29"><b>29</b><i>陸官46期</i></div>
+      <div class="tb" style="left:70.0%;top:86.90%" data-t="30"><b>30</b><i>陸官46期</i></div>
+      <div class="tb" style="left:70.0%;top:95.00%" data-t="31"><b>31</b><i>陸官46期</i></div>
+      <div class="tb" style="left:87.0%;top:14.00%" data-t="32"><b>32</b><i>長官</i></div>
+      <div class="tb" style="left:87.0%;top:22.10%" data-t="33"><b>33</b><i>長官</i></div>
+      <div class="tb" style="left:87.0%;top:30.20%" data-t="34"><b>34</b><i>長官</i></div>
+      <div class="tb" style="left:87.0%;top:38.30%" data-t="35"><b>35</b><i>陸院老師</i></div>
+      <div class="tb" style="left:87.0%;top:46.40%" data-t="36"><b>36</b><i>戰院同學</i></div>
+      <div class="tb" style="left:87.0%;top:54.50%" data-t="37"><b>37</b><i>欣桃</i></div>
+      <div class="tb" style="left:87.0%;top:62.60%" data-t="38"><b>38</b><i>陸官46期</i></div>
+      <div class="tb" style="left:87.0%;top:70.70%" data-t="39"><b>39</b><i>陸官46期</i></div>
+      <div class="tb" style="left:87.0%;top:78.80%" data-t="40"><b>40</b><i>陸官46期</i></div>
+      <div class="tb" style="left:87.0%;top:86.90%" data-t="41"><b>41</b><i>陸官46期</i></div>
+      <div class="tb" style="left:87.0%;top:95.00%" data-t="42"><b>42</b><i>陸官46期</i></div>
+      <div class="tb tb-main" style="left:49%;top:11.8%" data-t="主桌"><b>主桌</b></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  查詢有疑問，請洽現場接待人員。<br>
+  <span class="en">Need help? Please ask our reception staff.</span>
+</footer>
+
+</div>
+<script>
+const EN = {"女方家人":"Bride's Family","女方貴賓":"Bride's VIP Guests","女方親友":"Bride's Family Friends","女方同事":"Bride's Colleagues","男方貴賓":"Groom's VIP Guests","男方親友":"Groom's Family Friends","男方同事":"Groom's Colleagues","男方朋友":"Groom's Friends","新人朋友":"Friends of Phil & Jasmine","貴賓桌":"VIP Table","主桌":"Head Table"};
+const D = {"p":[["中妍、李偉＋兩小孩",4,"親友桌",1,0],["黃志杰",3,"親友桌",1,0],["陽錦雲、孫憶汶、陽浩宇",3,"親友桌",1,0],["玉梅",4,"親友桌",2,0],["徐曉佩、蔡詒斌、蔡岳倫",3,"親友桌",2,0],["徐瑋",1,"親友桌",2,0],["維安哥哥",2,"親友桌",2,0],["陽浩天",7,"親友桌",3,0],["管玉娟",1,"親友桌",3,0],["詹曙峰-TPCA",2,"親友桌",3,0],["Linda Lee",2,"親友桌",4,0],["丁子峻",2,"親友桌",4,0],["Nicole",2,"親友桌",4,0],["邱佳慧",1,"親友桌",4,0],["沈欣儀、小強姐夫、明儀",3,"親友桌",4,0],["Minley Yeh",1,"親友桌",5,0],["Irene Huang",2,"親友桌",5,0],["Daniela Che",4,"親友桌",5,0],["Diane & Case",2,"親友桌",5,0],["呂阿福",1,"親友桌",5,0],["Ame",3,"親友桌",6,0],["王素燕",3,"親友桌",6,0],["林子傑",2,"親友桌",6,0],["吳雅茹",2,"親友桌",6,0],["楊子祥",1,"親友桌",7,0],["周家榮",1,"親友桌",7,0],["李宗懋",1,"親友桌",7,0],["王元",1,"親友桌",7,0],["廖宥珊",2,"親友桌",7,0],["郭德賢",3,"親友桌",7,0],["葉芝嘉",5,"親友桌",8,0],["Amy Hsu",3,"親友桌",8,0],["Barber Rain",2,"親友桌",8,0],["史蓉芳",2,"親友桌",11,0],["韓博文",2,"親友桌",11,0],["陳蘊蓉",2,"親友桌",11,0],["陽錦芝",1,"親友桌",11,0],["陽錦梅＋大姑爹",2,"親友桌",11,0],["Simon Harris",2,"親友桌",12,0],["Will Lewis & Frances Parkhowell",2,"親友桌",12,0],["Grace",5,"親友桌",12,0],["夏芯Riley",1,"親友桌",13,0],["沈凱峰Jake",4,"親友桌",13,0],["Samuel Harris",2,"親友桌",13,0],["Joe Lin",1,"親友桌",13,0],["Luke Harris",1,"親友桌",13,0],["Peter Harris",1,"親友桌",13,0],["Cort Dalton",2,"親友桌",14,0],["Ruby Cheng",1,"親友桌",14,0],["Alex Hutten-Czapski",2,"親友桌",14,0],["M Zane Arnold",1,"親友桌",14,0],["Donald J. Marion",1,"親友桌",14,0],["Alex Teachey",1,"親友桌",14,0],["John Stephenson",1,"親友桌",14,0],["Marvin E. Rodriguez",1,"親友桌",14,0],["Ina Shang",3,"親友桌",15,0],["Javier Martin",3,"親友桌",15,0],["Chad O. Grant",3,"親友桌",15,0],["Tahric Finn",1,"親友桌",15,0],["邱舒婷",4,"親友桌",16,0],["Shane Wang",2,"親友桌",16,0],["美美",1,"親友桌",16,0],["陳冠廷",1,"親友桌",16,0],["Tricia",1,"親友桌",16,0],["萬穎璇",1,"親友桌",16,0],["譚文龍 Klaus",1,"親友桌",17,0],["林珮淳",1,"親友桌",17,0],["朱育瑱",1,"親友桌",17,0],["陳詩淵",1,"親友桌",17,0],["陳哲昀",1,"親友桌",17,0],["董佳豪",1,"親友桌",17,0],["Ujjwal",1,"親友桌",17,0],["黃學成",1,"親友桌",17,0],["林筱曼",1,"親友桌",17,0],["楊靜儀 Allison",1,"親友桌",17,0],["Phil Harris",1,"主桌","主桌",0],["Jasmine Yang",1,"主桌","主桌",0],["陽錦輝",1,"主桌","主桌",0],["徐月榮",1,"主桌","主桌",0],["Khim Harris",1,"主桌","主桌",0],["Eugenie Harris",1,"主桌","主桌",0],["Mike Akkermans",1,"主桌","主桌",0],["Katherine Akkermans",1,"主桌","主桌",0],["徐梅芬",1,"主桌","主桌",0],["徐雲振",1,"主桌","主桌",0],["徐衍璞（致詞長官及夫人）",2,"主桌","主桌",0],["陳重明",2,"長官",0,0],["梁中原",1,"長官",0,0],["蔣中千",1,"長官",0,0],["陳學華",1,"長官",0,0],["張世杰",1,"長官",0,0],["侯清利",1,"長官",0,0],["孔令民",1,"長官",0,0],["惠繼宗",2,"長官",0,0],["黃中原",2,"長官",0,0],["黃兆玉",2,"長官",0,0],["游輝彥",2,"長官",0,0],["姜國慶",1,"長官",0,0],["王淑芬",1,"長官",0,0],["何秀霞",1,"長官",0,0],["吳國禎",2,"長官",0,0],["黃紹天",1,"長官",0,0],["王潤身",1,"長官",0,0],["馬英漢",2,"長官",0,0],["生肆德",1,"長官",0,0],["李成中",1,"長官",0,0],["劉必棟",1,"長官",0,0],["石景文",1,"長官",0,0],["傅明華",1,"長官",0,0],["胡國棟",2,"長官",0,0],["萬億中",1,"長官",0,0],["林伯英",1,"長官",0,0],["張陵霄",1,"長官",0,0],["鄭伯昇",1,"長官",0,0],["陳建聰",1,"長官",0,0],["李元捷",1,"長官",0,0],["鍾存淵",2,"陸院老師",0,0],["楊正南",2,"陸院老師",0,0],["張孝義",1,"陸院老師",0,0],["革安明",1,"陸院老師",0,0],["余永章",2,"陸院老師",0,0],["賈院長",1,"陸院老師",0,0],["魯敬頤",1,"陸院老師",0,0],["周書年",1,"陸院老師",0,0],["張克難",1,"陸院老師",0,0],["董紹明",1,"陸院老師",0,0],["孫睿騰",1,"陸院老師",0,0],["鄧正萍",2,"陸院老師",0,0],["王郅強",2,"陸院老師",0,0],["趙敬文",2,"陸院老師",0,0],["唐翔山",2,"陸院老師",0,0],["陳聖熙",1,"陸院老師",0,0],["于善疆",2,"陸院老師",0,0],["孫秉中",2,"陸院老師",0,0],["賴焜燦",2,"陸院老師",0,0],["馬家鳳",1,"陸院老師",0,0],["龔建強",1,"陸院老師",0,0],["李錦昌",1,"陸院老師",0,0],["鍾子玉",2,"陸院老師",0,0],["張至強",1,"陸院老師",0,0],["劉大成",1,"陸官46期",0,0],["王德榮",1,"陸官46期",0,0],["雷秉林",1,"陸官46期",0,0],["李高堯",1,"陸官46期",0,0],["劉本善",1,"陸官46期",0,0],["張鎮濤",1,"陸官46期",0,0],["冉涪錚",2,"陸官46期",0,0],["劉邦民",1,"陸官46期",0,0],["黃俊星",1,"陸官46期",0,0],["熊耀華",1,"陸官46期",0,0],["楊中榮",1,"陸官46期",0,0],["張后明",1,"陸官46期",0,0],["徐家驤",1,"陸官46期",0,0],["林泰棟",1,"陸官46期",0,0],["張小興",2,"陸官46期",0,0],["何雲龍",2,"陸官46期",0,0],["周振群",2,"陸官46期",0,0],["鄧振華",2,"陸官46期",0,0],["陸人虎",1,"陸官46期",0,0],["管桓毅",2,"陸官46期",0,0],["莫秋元",2,"陸官46期",0,0],["方萬里",2,"陸官46期",0,0],["傅治國",2,"陸官46期",0,0],["伍立生",1,"陸官46期",0,0],["方雄輝",1,"陸官46期",0,0],["曾玉生",2,"陸官46期",0,0],["楊家聲",2,"陸官46期",0,0],["王家魁",1,"陸官46期",0,0],["萬復華",2,"陸官46期",0,0],["蘇進強",1,"陸官46期",0,0],["李庚亭",1,"陸官46期",0,0],["李振亞",1,"陸官46期",0,0],["遲立德",1,"陸官46期",0,0],["謝化宇",1,"陸官46期",0,0],["胡昭義",1,"陸官46期",0,0],["吳天鵬",1,"陸官46期",0,0],["苗培霖",1,"陸官46期",0,0],["田駿",1,"陸官46期",0,0],["尉遲永平",1,"陸官46期",0,0],["王慶仁",1,"陸官46期",0,1],["何喜元",2,"陸官46期",0,0],["吳達中",1,"陸官46期",0,0],["謝永生",2,"陸官46期",0,0],["連捷",1,"陸官46期",0,0],["劉福興",1,"陸官46期",0,0],["周南強",1,"陸官46期",0,0],["奚成祺",1,"陸官46期",0,0],["劉仲英",2,"陸官46期",0,0],["周明源",2,"陸官46期",0,0],["李仙財",1,"陸官46期",0,0],["凌寶華",2,"陸官46期",0,0],["陳憲良",2,"陸官46期",0,0],["高世傑",2,"陸官46期",0,0],["劉仁基",1,"陸官46期",0,0],["齊錦秋",1,"陸官46期",0,0],["汪子揚",1,"陸官46期",0,0],["曾家驥",1,"陸官46期",0,0],["陳大全",2,"陸官46期",0,0],["薛朝勇",1,"陸官46期",0,0],["郭亨政",1,"陸官46期",0,0],["查振東",2,"陸官46期",0,0],["吳仲麟",2,"陸官46期",0,0],["袁復華",2,"陸官46期",0,0],["張春傑",2,"陸官46期",0,0],["李立遠",1,"陸官46期",0,0],["張一鵬",2,"陸官46期",0,0],["裴可明",2,"陸官46期",0,0],["黃蓮美",1,"陸官46期",0,0],["郭榮國",1,"陸官46期",0,0],["崔台興",2,"陸官46期",0,0],["林冠琦",2,"戰院同學",0,0],["方治豪",2,"戰院同學",0,0],["余勝泰",2,"戰院同學",0,0],["梁清華",2,"戰院同學",0,0],["周偉賢",1,"戰院同學",0,0],["黃一立",1,"戰院同學",0,0],["陳碧雲",2,"欣桃",0,0],["李廣龍",2,"欣桃",0,0],["李慶中",2,"欣桃",0,0],["吳裕智",2,"欣桃",0,0],["李風彬",1,"欣桃",0,0],["陳慶權",2,"欣桃",0,0],["簡麗蘭",1,"欣桃",0,0],["林逢燿",1,"欣桃",0,0],["劉淑德",1,"欣桃",0,0],["邱弈明",1,"欣桃",0,0],["汪亮",1,"欣桃",0,0],["布園芳",1,"欣桃",0,0],["徐翊勝",1,"欣桃",0,0],["俞鷺",2,"欣桃",0,0],["孫覺柔",1,"欣桃",0,0],["邱希庚",1,"欣桃",0,0],["蔡振家",2,"欣桃",0,0],["劉文雄",1,"欣桃",0,0],["孫玦新",1,"欣桃",0,0],["蘇庚申",1,"中心連",0,0],["駱賜海",2,"中心連",0,0],["劉神保",2,"中心連",0,0],["邱國昌",2,"中心連",0,0],["羅力文",2,"中心連",0,0],["周先智",2,"中心連",0,0],["黃益輝",2,"中心連",0,0],["楊金榜",2,"中心連",0,0],["楊明賢",2,"中心連",0,0],["陳炳煌",1,"中心連",0,0],["詹銘勳",2,"中心連",0,0],["吳添福",2,"中心連",0,0],["陳建霖",2,"72群",0,0],["曾新德",1,"72群",0,0],["蘇文生",2,"72群",0,0],["賴坤勇",1,"72群",0,0],["巫進興",1,"72群",0,0],["靳學孝",1,"72群",0,0],["顧治明",1,"72群",0,0],["孫玉春",1,"72群",0,0],["譚聖光",1,"72群",0,0],["康明賜",2,"72群",0,0],["鄭蜀南",2,"72群",0,0],["林惠鈴",2,"72群",0,0],["管光弘",1,"72群",0,0],["梁美倫",2,"72群",0,0],["詹仁義",2,"72群",0,0],["張雅玲",1,"72群",0,0],["吳俊明",1,"72群",0,0],["黃美嬌／吳緒信",2,"72群",0,0],["黄志仁，段如儀",2,"72群",0,0],["孫志強",2,"72群",0,0],["劉艾芊",1,"72群",0,0],["陳雅莉",1,"72群",0,0],["袁誠虞",1,"72群",0,0],["田安光",1,"72群",0,0]],"g":{"主桌":{"t":[],"n":""},"長官":{"t":[21,22,32,33,34],"n":""},"陸院老師":{"t":[23,24,35],"n":""},"陸官46期":{"t":[27,28,29,30,31,38,39,40,41,42],"n":""},"戰院同學":{"t":[36],"n":""},"欣桃":{"t":[25,26,37],"n":""},"中心連":{"t":[18,19],"n":""},"72群":{"t":[9,10,20],"n":""}},"tl":{"1":"女方家人","2":"女方家人","3":"女方貴賓","4":"女方親友","5":"男方貴賓","6":"女方同事","7":"女方同事","8":"新人朋友","9":"72群","10":"72群","11":"女方家人","12":"貴賓桌","13":"男方親友","14":"男方同事","15":"男方朋友","16":"女方親友","17":"女方同事","18":"中心連","19":"中心連","20":"72群","21":"長官","22":"長官","23":"陸院老師","24":"陸院老師","25":"欣桃","26":"欣桃","27":"陸官46期","28":"陸官46期","29":"陸官46期","30":"陸官46期","31":"陸官46期","32":"長官","33":"長官","34":"長官","35":"陸院老師","36":"戰院同學","37":"欣桃","38":"陸官46期","39":"陸官46期","40":"陸官46期","41":"陸官46期","42":"陸官46期"}};
+const out = document.getElementById('out'), q = document.getElementById('q');
+const VAR={'黄':'黃','陈':'陳','杨':'楊','张':'張','刘':'劉','吕':'呂','吴':'吳',
+ '苏':'蘇','郑':'鄭','谢':'謝','赖':'賴','钟':'鍾','叶':'葉','萧':'蕭','卢':'盧','罗':'羅',
+ '邓':'鄧','韩':'韓','冯':'馮','龚':'龔','庄':'莊','简':'簡','颜':'顏','严':'嚴','华':'華',
+ '蓝':'藍','龙':'龍','关':'關','马':'馬','孙':'孫','赵':'趙','钱':'錢','汤':'湯','万':'萬',
+ '卫':'衛','韦':'韋','顾':'顧','许':'許','邹':'鄒','戴':'戴','侯':'侯','杜':'杜','缐':'線',
+ '台':'臺','傅':'傅','贺':'賀','邝':'鄺','阮':'阮','庞':'龐','纪':'紀','谭':'譚','詹':'詹'};
+const nk = s => String(s).toLowerCase()
+  .replace(/[\s\u3000·,，、＋+&()（）／/\\．.'\u2019-]/g,'')
+  .replace(/./g, c => VAR[c] || c);
+const P = D.p.map(a => ({name:a[0], pax:a[1], group:a[2], table:a[3], veg:a[4], k:nk(a[0])}));
+
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+
+function rangeText(ts){
+  const out=[]; let i=0;
+  while(i<ts.length){ let j=i; while(j+1<ts.length && ts[j+1]===ts[j]+1) j++;
+    out.push(j-i>=2 ? ts[i]+'–'+ts[j] : ts.slice(i,j+1).join('、')); i=j+1; }
+  return '第 '+out.join('、')+' 桌';
+}
+function enRange(ts){
+  const o=[]; let i=0;
+  while(i<ts.length){ let j=i; while(j+1<ts.length && ts[j+1]===ts[j]+1) j++;
+    o.push(j-i>=2 ? ts[i]+'–'+ts[j] : ts.slice(i,j+1).join(', ')); i=j+1; }
+  return (ts.length>1?'Tables ':'Table ')+o.join(' and ');
+}
+function highlight(list){
+  document.querySelectorAll('.tb').forEach(e=>e.classList.remove('on'));
+  list.forEach(t=>{const e=document.querySelector('.tb[data-t="'+t+'"]'); if(e)e.classList.add('on')});
+  const f=document.querySelector('.tb.on');
+  if(f) f.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+}
+
+function show(p){
+  const fixed = p.table !== 0;
+  const area  = fixed && p.table!=='主桌' ? (D.tl[p.table]||p.group) : p.group;
+  const ts    = fixed ? [p.table] : (D.g[p.group] ? D.g[p.group].t : []);
+  const nm    = esc(p.name);
+  const THX   = '非常感謝您的蒞臨，期待與您一同分享今天的喜悅 ♡';
+  const THXEN = 'Thank you for joining us. We\u2019re so happy to celebrate this special day with you! ♡';
+  let seat, seatEn, free='', freeEn='';
+
+  if (p.table === '主桌'){
+    seat   = '<b class="no">主桌</b>';
+    seatEn = '<b class="no">Head Table</b>';
+  } else if (fixed){
+    seat   = '<b class="no">第 '+p.table+' 桌</b><span class="sub">｜'+esc(area)+'</span>';
+    seatEn = '<b class="no">Table '+p.table+'</b>'+(EN[area]?'<span class="sub"> | '+EN[area]+'</span>':'');
+  } else {
+    seat   = '<span class="sub">'+esc(p.group)+'｜</span><b class="no rng">'+rangeText(ts)+'</b>';
+    seatEn = '<b class="no rng">'+enRange(ts)+'</b><span class="sub"> | Open seating</span>';
+    free   = '<p class="ln">以上桌次皆可自由入座。</p>';
+    freeEn = '<p class="ln">Any of these tables is open — please take any seat.</p>';
+  }
+  const veg   = p.veg ? '<p class="veg">另已為您安排素食。</p>' : '';
+  const vegEn = p.veg ? '<p class="veg">A vegetarian meal has been arranged for you.</p>' : '';
+  const note  = (!fixed && (D.g[p.group]||{}).n) ? '<p class="note">'+esc(D.g[p.group].n)+'</p>' : '';
+
+  out.innerHTML='<div class="card">'+
+    '<p class="ln greet">親愛的貴賓 '+nm+'，您好：</p>'+
+    '<p class="ln">'+(p.pax>1?'您本次共登記 '+p.pax+' 位參加喜宴，座位安排於':'您的座位安排在')+'</p>'+
+    '<p class="seat">'+seat+'</p>'+ free + veg + note +
+    '<p class="ln thx">'+THX+'</p>'+
+    (fixed?'<div class="enblk">'+
+      '<p class="ln greet">Dear '+nm+',</p>'+
+      '<p class="ln">'+(p.pax>1?'Your reservation is for a party of '+p.pax+', and your table is':'Your table is')+'</p>'+
+      '<p class="seat">'+seatEn+'</p>'+ freeEn + vegEn +
+      '<p class="ln thx">'+THXEN+'</p>'+
+    '</div>':'')+'</div>';
+  highlight(ts);
+}
+
+function search(){
+  const raw=q.value.trim();
+  if(!raw){out.innerHTML='';highlight([]);return}
+  const k=nk(raw);
+  if(k.length<2){
+    out.innerHTML='<div class="none">請至少輸入 2 個字，例如姓名的姓＋名。'+
+      '<span class="en">Please type at least 2 characters.</span></div>';
+    highlight([]);return;
+  }
+  const hits=P.filter(p=>p.k.includes(k));
+  if(!hits.length){
+    out.innerHTML='<div class="none"><strong>查無這個姓名 · Name not found</strong>'+
+      '請確認字是否正確，或改輸入姓名中的其他字。<br>也可以直接詢問現場接待人員。'+
+      '<span class="en">Please check the spelling, or try a different part of your name. '+
+      'Our reception staff can also help.</span></div>';
+    highlight([]);return;
+  }
+  if(hits.length===1){show(hits[0]);return}
+  out.innerHTML='<div class="pick"><p>找到 '+hits.length+' 位，請點選您的姓名：'+
+    '<span class="en">'+hits.length+' matches — tap your name.</span></p>'+
+    hits.slice(0,50).map(p=>'<button class="chip" data-i="'+P.indexOf(p)+'">'+
+      '<b>'+esc(p.name)+'</b><span>查看 View</span></button>').join('')+'</div>';
+  highlight([]);
+}
+
+q.addEventListener('input',search);
+q.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();q.blur();search()}});
+out.addEventListener('click',e=>{const c=e.target.closest('.chip'); if(c) show(P[+c.dataset.i])});
+</script>
+</body>
+</html>
